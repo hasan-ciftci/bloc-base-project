@@ -1,8 +1,11 @@
 import 'package:bloc_base_project/core/constants/app/app_constants.dart';
 import 'package:bloc_base_project/core/init/lang/language_manager.dart';
+import 'package:bloc_base_project/core/init/navigation/navigation_service.dart';
 import 'package:bloc_base_project/presentation/views/login_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'core/init/navigation/navigation_routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +29,8 @@ class BLoCBaseProject extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
+      navigatorKey: NavigationService.instance.navigatorKey,
+      onGenerateRoute: NavigationRoutes.instance.generateRoute,
       home: LoginView(),
     );
   }

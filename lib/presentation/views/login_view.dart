@@ -1,5 +1,7 @@
 import 'package:bloc_base_project/core/constants/image/image_constants.dart';
+import 'package:bloc_base_project/core/constants/navigation/navigation_constants.dart';
 import 'package:bloc_base_project/core/constants/style/decoration_constants.dart';
+import 'package:bloc_base_project/core/init/navigation/navigation_service.dart';
 import 'package:bloc_base_project/generated/locale_keys.g.dart';
 import 'package:bloc_base_project/presentation/widgets/custom_text_form_field.dart';
 import 'package:bloc_base_project/presentation/widgets/locale_text.dart';
@@ -66,5 +68,9 @@ class LoginView extends StatelessWidget {
   }
 
   ElevatedButton buildLoginButton() => ElevatedButton(
-      onPressed: () {}, child: LocaleText(value: LocaleKeys.loginForm_login));
+      onPressed: () {
+        NavigationService.instance
+            .navigateToPage(path: NavigationConstants.HOME_VIEW);
+      },
+      child: LocaleText(value: LocaleKeys.loginForm_login));
 }
