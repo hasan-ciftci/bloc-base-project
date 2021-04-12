@@ -1,6 +1,9 @@
 import 'package:bloc_base_project/core/constants/image/image_constants.dart';
 import 'package:bloc_base_project/core/constants/style/decoration_constants.dart';
+import 'package:bloc_base_project/generated/locale_keys.g.dart';
 import 'package:bloc_base_project/presentation/widgets/custom_text_form_field.dart';
+import 'package:bloc_base_project/presentation/widgets/locale_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,19 +52,19 @@ class LoginView extends StatelessWidget {
 
   CustomTextFormField buildUsernameFormField() {
     return CustomTextFormField(
-      hintText: 'Kullanıcı Adı',
-      labelText: 'Kullanıcı Adı',
+      hintText: LocaleKeys.loginForm_username.tr(),
+      labelText: LocaleKeys.loginForm_username.tr(),
     );
   }
 
   CustomTextFormField buildPasswordFormField() {
     return CustomTextFormField(
       isObscure: true,
-      hintText: 'Parola',
-      labelText: 'Parola',
+      hintText: LocaleKeys.loginForm_password.tr(),
+      labelText: LocaleKeys.loginForm_password.tr(),
     );
   }
 
-  ElevatedButton buildLoginButton() =>
-      ElevatedButton(onPressed: () {}, child: Text("Giriş yap"));
+  ElevatedButton buildLoginButton() => ElevatedButton(
+      onPressed: () {}, child: LocaleText(value: LocaleKeys.loginForm_login));
 }

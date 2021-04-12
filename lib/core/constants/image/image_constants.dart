@@ -1,4 +1,4 @@
-part '../extension/image_extension.dart';
+part '../../extension/image_extension.dart';
 
 class ImageConstants {
   static ImageConstants _instance;
