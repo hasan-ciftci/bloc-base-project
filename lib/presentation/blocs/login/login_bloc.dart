@@ -20,12 +20,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LoginSubmitted) {
       yield state.copyWith(formStatus: FormSubmitting());
       try {
-        await authenticationRepository.login();
+        await authenticationRepository.login(
+          username: state.username,
+          password: state.password,
+        );
         yield state.copyWith(formStatus: SubmissionSuccess());
       } catch (e) {
         yield state.copyWith(formStatus: SubmissionFailed(e));
       }
     }
   }
-
 }
