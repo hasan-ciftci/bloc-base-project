@@ -2,6 +2,10 @@
   "loginForm": {
     "username": "Kullanıcı adı",
     "password": "Parola",
-    "login": "Giriş Yap"
+    "login": "Giriş Yap",
+    "validation": {
+      "shortPassword": "Şifre 3 karakterden daha uzun olmalıdır",
+      "shortUsername": "Kullanıcı adı 3 karakterden daha uzun olmalıdır"
+    }
   }
 }

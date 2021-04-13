@@ -2,6 +2,10 @@
   "loginForm": {
     "username": "Username",
     "password": "Password",
-    "login": "Login"
+    "login": "Login",
+    "validation": {
+      "shortPassword": "Password length should be more than 3 characters",
+      "shortUsername": "Username length should be more than 3 characters"
+    }
   }
 }
