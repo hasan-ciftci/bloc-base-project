@@ -1,23 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:bloc_base_project/core/init/theme/themedatas/red_dark_theme.dart';
+import 'package:bloc_base_project/core/init/theme/themedatas/red_theme.dart';
 
 class AppThemes {
   static final appThemeData = {
-    AppTheme.LIGHT_THEME: ThemeData(
-      scaffoldBackgroundColor: Colors.white,
-      primarySwatch: Colors.blue,
-      backgroundColor: Colors.white,
-      textTheme: TextTheme(
-        bodyText1: TextStyle(color: Colors.black),
-      ),
-    ),
-    AppTheme.DARK_THEME: ThemeData(
-      scaffoldBackgroundColor: Colors.black,
-      primarySwatch: Colors.teal,
-      backgroundColor: Colors.black,
-      textTheme: TextTheme(
-        bodyText1: TextStyle(color: Colors.white),
-      ),
-    ),
+    AppTheme.LIGHT_THEME: redTheme,
+    AppTheme.DARK_THEME: redDarkTheme,
   };
 }
 

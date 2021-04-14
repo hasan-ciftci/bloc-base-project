@@ -34,7 +34,8 @@ class LoginView extends StatelessWidget {
                   child: SingleChildScrollView(
                       reverse: true,
                       child: Container(
-                        decoration: AppDecorations.kShadowBoxDecoration,
+                        decoration:
+                            AppDecorations.kShadowBoxDecoration(context),
                         margin: EdgeInsets.symmetric(
                           vertical: verticalMargin,
                           horizontal: horizontalMargin,
