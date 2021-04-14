@@ -1,5 +1,6 @@
 import 'package:bloc_base_project/core/constants/app/app_constants.dart';
 import 'package:bloc_base_project/core/init/lang/language_manager.dart';
+import 'package:bloc_base_project/core/init/preferences/preferences_manager.dart';
 import 'package:bloc_base_project/presentation/blocs/theme/theme_bloc.dart';
 import 'package:bloc_base_project/presentation/blocs/theme/theme_state.dart';
 import 'package:bloc_base_project/presentation/views/login_view.dart';
@@ -13,6 +14,7 @@ import 'core/init/navigation/navigation_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await PreferencesManager.preferencesInit();
 
   runApp(
     EasyLocalization(

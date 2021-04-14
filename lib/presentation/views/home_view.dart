@@ -2,6 +2,7 @@ import 'package:bloc_base_project/core/constants/navigation/navigation_constants
 import 'package:bloc_base_project/core/init/lang/language_manager.dart';
 import 'package:bloc_base_project/core/init/navigation/navigation_service.dart';
 import 'package:bloc_base_project/core/init/theme/theme.dart';
+import 'package:bloc_base_project/core/init/theme/theme_manager.dart';
 import 'package:bloc_base_project/presentation/blocs/theme/theme_bloc.dart';
 import 'package:bloc_base_project/presentation/blocs/theme/theme_event.dart';
 import 'package:bloc_base_project/presentation/widgets/locale_text.dart';
@@ -15,11 +16,23 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  AppTheme _currentTheme = AppTheme.LIGHT_THEME;
+  _loadTheme() {
+    context
+        .read<ThemeBloc>()
+        .add(ThemeEvent(appTheme: ThemeManager.instance.getTheme()));
+  }
 
-  _changeTheme(bool isDarkTheme) {
-    _currentTheme = isDarkTheme ? AppTheme.LIGHT_THEME : AppTheme.DARK_THEME;
-    context.read<ThemeBloc>().add(ThemeEvent(appTheme: _currentTheme));
+  _setTheme(bool isDarkTheme) async {
+    AppTheme selectedTheme =
+        isDarkTheme ? AppTheme.LIGHT_THEME : AppTheme.DARK_THEME;
+    context.read<ThemeBloc>().add(ThemeEvent(appTheme: selectedTheme));
+    ThemeManager.instance.saveTheme(selectedTheme);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTheme();
   }
 
   @override
@@ -44,12 +57,13 @@ class _HomeViewState extends State<HomeView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Switch(
-                    value: _currentTheme == AppTheme.LIGHT_THEME,
-                    onChanged: (val) {
-                      _changeTheme(val);
+                    value: ThemeManager.instance.getTheme() ==
+                        AppTheme.LIGHT_THEME,
+                    onChanged: (val) async {
+                      _setTheme(val);
                     }),
                 Text(
-                  _currentTheme == AppTheme.LIGHT_THEME
+                  ThemeManager.instance.getTheme() == AppTheme.LIGHT_THEME
                       ? "Aydınlık"
                       : "Karanlık",
                   style: Theme.of(context).textTheme.bodyText1,
@@ -58,9 +72,9 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           ElevatedButton(
-              onPressed: () {
-                NavigationService.instance
-                    .navigateToPage(path: NavigationConstants.LOGIN_VIEW);
+              onPressed: () async {
+                await NavigationService.instance
+                    .navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
               },
               child: LocaleText(value: "Geri Dön")),
         ],
