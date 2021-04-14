@@ -7,5 +7,19 @@
       "shortPassword": "Şifre 3 karakterden daha uzun olmalıdır",
       "shortUsername": "Kullanıcı adı 3 karakterden daha uzun olmalıdır"
     }
+  },
+  "settings": {
+    "settings": "Ayarlar",
+    "themeSettings": {
+      "themePreference": "Tema tercihi",
+      "themeSubtitle": "Karanlık ve aydınlık mod sunar",
+      "dark": "Karanlık",
+      "light": "Aydınlık"
+    },
+    "languageSettings": {
+      "LanguagePreference": "Dil tercihi",
+      "languageSubtitle": "Dili değiştir"
+    },
+    "exit":"Çıkış"
   }
 }

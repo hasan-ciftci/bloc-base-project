@@ -7,5 +7,19 @@
       "shortPassword": "Password length should be more than 3 characters",
       "shortUsername": "Username length should be more than 3 characters"
     }
+  },
+  "settings": {
+    "settings": "Settings",
+    "themeSettings": {
+      "themePreference": "Theme preference",
+      "themeSubtitle": "Provides dark or light mode",
+      "dark": "Dark",
+      "light": "Light"
+    },
+    "languageSettings": {
+      "LanguagePreference": "Language Preference",
+      "languageSubtitle": "Change language"
+    },
+    "exit":"Exit"
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bloc_base_project/core/constants/navigation/navigation_constants.dart';
 import 'package:bloc_base_project/core/init/lang/language_manager.dart';
+import 'package:bloc_base_project/core/init/lang/locale_keys.g.dart';
 import 'package:bloc_base_project/core/init/navigation/navigation_service.dart';
 import 'package:bloc_base_project/core/init/theme/theme.dart';
 import 'package:bloc_base_project/core/init/theme/theme_manager.dart';
@@ -38,37 +39,68 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: LocaleText(value: LocaleKeys.settings_settings),
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                context.setLocale(LanguageManager.instance.enLocale);
-              },
-              child: Text("ENGLISH")),
-          ElevatedButton(
-              onPressed: () {
-                context.setLocale(LanguageManager.instance.trLocale);
-              },
-              child: Text("TÜRKÇE")),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Switch(
-                    value: ThemeManager.instance.getTheme() ==
-                        AppTheme.LIGHT_THEME,
-                    onChanged: (val) async {
-                      _setTheme(val);
-                    }),
-                Text(
-                  ThemeManager.instance.getTheme() == AppTheme.LIGHT_THEME
-                      ? "Aydınlık"
-                      : "Karanlık",
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              ],
+          Card(
+            child: ListTile(
+              title: LocaleText(
+                  value: LocaleKeys.settings_themeSettings_themePreference),
+              subtitle: LocaleText(
+                  value: LocaleKeys.settings_themeSettings_themeSubtitle),
+              trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Flexible(
+                    child: Switch(
+                        value: ThemeManager.instance.getTheme() ==
+                            AppTheme.LIGHT_THEME,
+                        onChanged: (val) async {
+                          _setTheme(val);
+                        }),
+                  ),
+                  Flexible(
+                    child: LocaleText(
+                      value: ThemeManager.instance.getTheme() ==
+                              AppTheme.LIGHT_THEME
+                          ? LocaleKeys.settings_themeSettings_light
+                          : LocaleKeys.settings_themeSettings_dark,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: LocaleText(
+                  value:
+                      LocaleKeys.settings_languageSettings_LanguagePreference),
+              subtitle: LocaleText(
+                  value: LocaleKeys.settings_languageSettings_languageSubtitle),
+              trailing: DropdownButton(
+                items: [
+                  DropdownMenuItem<Locale>(
+                    child: Text(LanguageManager.instance.trLocale.languageCode
+                        .toUpperCase()
+                        .toUpperCase()),
+                    value: LanguageManager.instance.trLocale,
+                  ),
+                  DropdownMenuItem(
+                    child: Text(LanguageManager.instance.enLocale.languageCode
+                        .toUpperCase()
+                        .toUpperCase()),
+                    value: LanguageManager.instance.enLocale,
+                  ),
+                ],
+                value: context.locale,
+                onChanged: (value) {
+                  context.setLocale(value);
+                },
+              ),
             ),
           ),
           ElevatedButton(
@@ -76,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
                 await NavigationService.instance
                     .navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
               },
-              child: LocaleText(value: "Geri Dön")),
+              child: LocaleText(value: LocaleKeys.settings_exit)),
         ],
       ),
     );
