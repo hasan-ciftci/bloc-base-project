@@ -13,11 +13,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is LoginUsernameChanged) {
       yield state.copyWith(username: event.username);
-    }
-    if (event is LoginPasswordChanged) {
+    } else if (event is LoginPasswordChanged) {
       yield state.copyWith(password: event.password);
-    }
-    if (event is LoginSubmitted) {
+    } else if (event is LoginSubmitted) {
       yield state.copyWith(formStatus: FormSubmitting());
       try {
         await authenticationRepository.login(

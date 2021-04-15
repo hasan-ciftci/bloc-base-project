@@ -11,6 +11,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/constants/navigation/navigation_constants.dart';
+import '../../core/init/navigation/navigation_service.dart';
+
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -47,6 +50,21 @@ class _HomeViewState extends State<HomeView> {
         children: [
           buildThemeSettingsCard(),
           buildLanguageSettingsCard(context),
+          GestureDetector(
+            onTap: () {
+              NavigationService.instance
+                  .navigateToPage(path: NavigationConstants.PROFILE_VIEW);
+            },
+            child: Card(
+              child: ListTile(
+                title: Text("Profil"),
+                subtitle: Text("Bilgilerimi görüntüle"),
+                trailing: Icon(
+                  Icons.person,
+                ),
+              ),
+            ),
+          ),
           buildExitButton(),
         ],
       ),

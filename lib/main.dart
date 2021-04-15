@@ -3,13 +3,13 @@ import 'package:bloc_base_project/core/init/lang/language_manager.dart';
 import 'package:bloc_base_project/core/init/preferences/preferences_manager.dart';
 import 'package:bloc_base_project/presentation/blocs/theme/theme_bloc.dart';
 import 'package:bloc_base_project/presentation/blocs/theme/theme_state.dart';
-import 'package:bloc_base_project/presentation/views/login_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/init/navigation/navigation_routes.dart';
 import 'core/init/navigation/navigation_service.dart';
+import 'presentation/views/home_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +41,7 @@ class BLoCBaseProject extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationService.instance.navigatorKey,
             onGenerateRoute: NavigationRoutes.instance.generateRoute,
-            home: LoginView(),
+            home: HomeView(),
           );
         },
       ),

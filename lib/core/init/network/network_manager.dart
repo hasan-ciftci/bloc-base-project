@@ -38,14 +38,13 @@ class NetworkManager {
     }
   }
 
-  Future dioGet<T extends BaseModel>(
-      {@required String baseURL,
-      @required String endPoint,
-      @required T model}) async {
+  Future dioGet<T extends BaseModel>({
+    @required String baseURL,
+    @required String endPoint,
+  }) async {
     try {
       final response = await _dio.get(
         baseURL + endPoint,
-        queryParameters: model.toJson(),
       );
       switch (response.statusCode) {
         case HttpStatus.ok:

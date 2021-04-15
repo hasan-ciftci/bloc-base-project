@@ -5,6 +5,7 @@ class UserModel implements BaseModel {
   String password;
 
   UserModel(this.username, this.password);
+  UserModel.nameOnly(this.username);
 
   UserModel.fromJson(Map<String, dynamic> json) {
     username = json['username'];
