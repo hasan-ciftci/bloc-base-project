@@ -45,72 +45,91 @@ class _HomeViewState extends State<HomeView> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Card(
-            child: ListTile(
-              title: LocaleText(
-                  value: LocaleKeys.settings_themeSettings_themePreference),
-              subtitle: LocaleText(
-                  value: LocaleKeys.settings_themeSettings_themeSubtitle),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Flexible(
-                    child: Switch(
-                        value: ThemeManager.instance.getTheme() ==
-                            AppTheme.LIGHT_THEME,
-                        onChanged: (val) async {
-                          _setTheme(val);
-                        }),
-                  ),
-                  Flexible(
-                    child: LocaleText(
-                      value: ThemeManager.instance.getTheme() ==
-                              AppTheme.LIGHT_THEME
-                          ? LocaleKeys.settings_themeSettings_light
-                          : LocaleKeys.settings_themeSettings_dark,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: LocaleText(
-                  value:
-                      LocaleKeys.settings_languageSettings_LanguagePreference),
-              subtitle: LocaleText(
-                  value: LocaleKeys.settings_languageSettings_languageSubtitle),
-              trailing: DropdownButton(
-                items: [
-                  DropdownMenuItem<Locale>(
-                    child: Text(LanguageManager.instance.trLocale.languageCode
-                        .toUpperCase()
-                        .toUpperCase()),
-                    value: LanguageManager.instance.trLocale,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(LanguageManager.instance.enLocale.languageCode
-                        .toUpperCase()
-                        .toUpperCase()),
-                    value: LanguageManager.instance.enLocale,
-                  ),
-                ],
-                value: context.locale,
-                onChanged: (value) {
-                  context.setLocale(value);
-                },
-              ),
-            ),
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                await NavigationService.instance
-                    .navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
-              },
-              child: LocaleText(value: LocaleKeys.settings_exit)),
+          buildThemeSettingsCard(),
+          buildLanguageSettingsCard(context),
+          buildExitButton(),
         ],
       ),
     );
+  }
+
+  Card buildThemeSettingsCard() {
+    return Card(
+      child: ListTile(
+        title: LocaleText(
+          value: LocaleKeys.settings_themeSettings_themePreference,
+        ),
+        subtitle: LocaleText(
+          value: LocaleKeys.settings_themeSettings_themeSubtitle,
+        ),
+        trailing: buildThemeSwitch(),
+      ),
+    );
+  }
+
+  Column buildThemeSwitch() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Flexible(
+          child: Switch(
+              value: ThemeManager.instance.getTheme() == AppTheme.LIGHT_THEME,
+              onChanged: (val) async {
+                _setTheme(val);
+              }),
+        ),
+        Flexible(
+          child: LocaleText(
+            value: ThemeManager.instance.getTheme() == AppTheme.LIGHT_THEME
+                ? LocaleKeys.settings_themeSettings_light
+                : LocaleKeys.settings_themeSettings_dark,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Card buildLanguageSettingsCard(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: LocaleText(
+          value: LocaleKeys.settings_languageSettings_LanguagePreference,
+        ),
+        subtitle: LocaleText(
+          value: LocaleKeys.settings_languageSettings_languageSubtitle,
+        ),
+        trailing: buildLanguageDropdownButton(context),
+      ),
+    );
+  }
+
+  DropdownButton<Locale> buildLanguageDropdownButton(BuildContext context) {
+    return DropdownButton(
+      items: [
+        DropdownMenuItem<Locale>(
+          child: Text(
+              LanguageManager.instance.trLocale.languageCode.toUpperCase()),
+          value: LanguageManager.instance.trLocale,
+        ),
+        DropdownMenuItem(
+          child: Text(
+              LanguageManager.instance.enLocale.languageCode.toUpperCase()),
+          value: LanguageManager.instance.enLocale,
+        ),
+      ],
+      value: context.locale,
+      onChanged: (value) {
+        context.setLocale(value);
+      },
+    );
+  }
+
+  ElevatedButton buildExitButton() {
+    return ElevatedButton(
+        onPressed: () async {
+          await NavigationService.instance
+              .navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
+        },
+        child: LocaleText(value: LocaleKeys.settings_exit));
   }
 }
