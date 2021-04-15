@@ -17,7 +17,7 @@ class ThemeManager implements IThemeManager {
   AppTheme getTheme() {
     String theme = PreferencesManager.instance
         .getStringValue(PreferencesKeys.SELECTED_THEME);
-    if (theme == null) {
+    if (theme == null || theme.isEmpty) {
       return AppTheme.LIGHT_THEME;
     }
     return getThemeFromString(jsonDecode(theme));
