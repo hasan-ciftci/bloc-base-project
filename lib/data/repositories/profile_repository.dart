@@ -18,4 +18,12 @@ class ProfileRepository {
     return ApplicationUserResponse(
         data: Data(firstName: "Hasan", lastName: "Çiftçi"));
   }
+
+  updateApplicationUser() async {
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  changePassword() async {
+    await Future.delayed(Duration(seconds: 2));
+  }
 }
