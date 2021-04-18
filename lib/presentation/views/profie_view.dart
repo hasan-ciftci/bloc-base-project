@@ -4,6 +4,7 @@ import 'package:bloc_base_project/presentation/blocs/profile/profile_event.dart'
 import 'package:bloc_base_project/presentation/blocs/profile/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../blocs/form_submission_status.dart';
 
@@ -26,6 +27,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text("Profil"),
@@ -54,7 +56,7 @@ class _ProfileViewState extends State<ProfileView> {
         },
         builder: (BuildContext context, state) {
           return state.formStatus is FormSubmitting
-              ? Text("Yükleniyor")
+              ? buildProfileFormLoadingShimmer(size)
               : SingleChildScrollView(
                   child: Column(
                     children: [
@@ -273,6 +275,51 @@ class _ProfileViewState extends State<ProfileView> {
                 context.read<ProfileBloc>().add(PasswordSubmitted());
               },
         child: Text("Yenile"),
+      ),
+    );
+  }
+
+  SizedBox buildProfileFormLoadingShimmer(Size size) {
+    return SizedBox(
+      width: size.width,
+      height: size.height,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300],
+        highlightColor: Colors.grey[100],
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                  10,
+                  (index) => index % 5 == 0
+                      ? buildShimmerFormTopic(size)
+                      : buildShimmerFormField(size),
+                )),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding buildShimmerFormField(Size size) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        width: size.width * .9,
+        height: size.height * .06,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Padding buildShimmerFormTopic(Size size) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        width: size.width * .4,
+        height: size.height * .07,
+        color: Colors.white,
       ),
     );
   }
